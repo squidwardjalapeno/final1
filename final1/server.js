@@ -103,7 +103,7 @@ io.on('connection', (socket) => {
 
 
   socket.emit('state', {map: matrix});
-  console.log("hellgo");
+  console.log("hello");
 
 
 
