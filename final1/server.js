@@ -89,7 +89,7 @@ colors = ['red', 'blue', 'green'];
 
 
 
-
+var fuckIt = 0;
 
 
 //console.log(matrix[0][0]);
@@ -100,8 +100,15 @@ colors = ['red', 'blue', 'green'];
 
 io.on('connection', (socket) => {
 
-  socket.emit('secret', matrix);
-  setTimeout( function() {socket.emit('secret', matrix)}, 200);
+  
+  //setTimeout( function() {socket.emit('state', {map: matrix})}, 200);
+
+
+  socket.emit('state', {map: matrix});
+  console.log("hello");
+
+
+
 
   console.log('a user connected:', socket.id);
   socket.on('disconnect', function() {
@@ -117,7 +124,7 @@ io.on('connection', (socket) => {
   socket.on('new player', function() {
     
 
-    
+
 
     players[socket.id] = {
       x: 60,
@@ -135,7 +142,6 @@ io.on('connection', (socket) => {
       
 
 
-      
 
     
 
@@ -171,32 +177,40 @@ io.on('connection', (socket) => {
         if (matrix[player.regionX + 1][player.regionY - 1] === undefined){
           swapLoad(player.regionX + 1, player.regionY - 1);
           }
+
+          socket.emit('state', {map: matrix});
         
       }
+
     
       if (player.x > 20 * 16)
       {
-
-        
+  
+        ++player.regionX;
 
         player.x = 0;
         
-        ++player.regionX;
-
-        
         if (matrix[player.regionX + 1][player.regionY + 1] === undefined){
-          swapLoad(player.regionX + 1, player.regionY + 1);
+          swapLoad(player.regionX + 1, player.regionY + 1);          
           }
+         
 
         if (matrix[player.regionX + 1][player.regionY] === undefined){
           swapLoad(player.regionX + 1, player.regionY);
           }
+          
 
         if (matrix[player.regionX + 1][player.regionY - 1] === undefined){
           swapLoad(player.regionX + 1, player.regionY - 1);
           }
 
-        //console.log(matrix[player.regionX][player.regionY]);
+
+          socket.emit('state', {map: matrix});
+          //console.log("hello");
+          
+
+
+      
 
         //socket.emit('secret', matrix);
         
@@ -208,6 +222,7 @@ io.on('connection', (socket) => {
         
         
       }
+
     
       if (player.y > 20 * 16)
       {
@@ -226,9 +241,12 @@ io.on('connection', (socket) => {
         if (matrix[player.regionX + 1][player.regionY + 1] === undefined){
           swapLoad(player.regionX + 1, player.regionY + 1);
           }
+
         
+          socket.emit('state', {map: matrix});
         
       }
+
     
       if (player.x < 0)
       {
@@ -247,11 +265,14 @@ io.on('connection', (socket) => {
         if (matrix[player.regionX - 1][player.regionY - 1] === undefined){
           swapLoad(player.regionX - 1, player.regionY - 1);
           }
+
         
+          socket.emit('state', {map: matrix});
         
       }
 
-      socket.emit('position', {playerbase: players, currentPlayer: player, map: matrix});
+
+      socket.emit('position', {playerbase: players, currentPlayer: player});
       
 
   });

@@ -60,28 +60,36 @@ window.onload = function(){
     ;
 }
 
+var baseMap;
 
-
-//socket.on('state', function(players) {
-
-    /*
-    var playerList = [];
+socket.on('state', function(data) {
+    
+    baseMap = data.map;
     
 
-    for (var id in players) {
-        var player = players[id];
-        playerList.push(player);
-                   
-        }
-        */
+    
+});
+
+   
+
+    
+    //console.log(map);
+
+
+    
     
 
     socket.on('position', function(data) {
         var currentPlayer = data.currentPlayer;
-        var playerbase = data.playerbase;
-        var map = data.map;
+        var playerbase = data.playerbase; 
+       // var map = data.map;
+        
+         
+          
 
         var playerList = [];
+        
+        
     
 
         for (var id in playerbase) {
@@ -149,12 +157,17 @@ window.onload = function(){
 
 
 
-        //socket.on('secret', function(matrix) {
+       // socket.on('secret', function(matrix) {
+        
+
+            //console.log(matrix);
+
 
             console.log("working xd");
 
             ctx2.clearRect(0, 0, 640, 640);
 
+            
 
             if (tilesReady){
 
@@ -165,16 +178,16 @@ window.onload = function(){
         
                     //for ( i=0; i < playerList.length; i++){
                         
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX][currentPlayer.regionY][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX][currentPlayer.regionY][k][l] / 8) * 16), 16, 16, viewport.offset[0] + k * 16, viewport.offset[1] + l * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX][currentPlayer.regionY][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX][currentPlayer.regionY][k][l] / 8) * 16), 16, 16, viewport.offset[0] + k * 16, viewport.offset[1] + l * 16, 16, 16);
 
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX + 1][currentPlayer.regionY][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX + 1][currentPlayer.regionY][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k+20) * 16, viewport.offset[1] + l * 16, 16, 16);
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX][currentPlayer.regionY + 1][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX][currentPlayer.regionY + 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + k * 16, viewport.offset[1] + (l+20) * 16, 16, 16);
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX - 1][currentPlayer.regionY][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX - 1][currentPlayer.regionY][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k-20) * 16, viewport.offset[1] + l * 16, 16, 16);
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX][currentPlayer.regionY - 1][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX][currentPlayer.regionY - 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + k * 16, viewport.offset[1] + (l-20) * 16, 16, 16);
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX - 1][currentPlayer.regionY - 1][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX - 1][currentPlayer.regionY - 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k-20) * 16, viewport.offset[1] + (l-20) * 16, 16, 16);
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX + 1][currentPlayer.regionY - 1][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX + 1][currentPlayer.regionY - 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k+20) * 16, viewport.offset[1] + (l-20) * 16, 16, 16);
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX - 1][currentPlayer.regionY + 1][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX - 1][currentPlayer.regionY + 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k-20) * 16, viewport.offset[1] + (l+20) * 16, 16, 16);
-                        ctx2.drawImage(worldTilesColor, ((map[currentPlayer.regionX + 1][currentPlayer.regionY + 1][k][l]%8) * 16), (Math.floor(map[currentPlayer.regionX + 1][currentPlayer.regionY + 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k+20) * 16, viewport.offset[1] + (l+20) * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX + 1][currentPlayer.regionY][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX + 1][currentPlayer.regionY][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k+20) * 16, viewport.offset[1] + l * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX][currentPlayer.regionY + 1][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX][currentPlayer.regionY + 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + k * 16, viewport.offset[1] + (l+20) * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX - 1][currentPlayer.regionY][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX - 1][currentPlayer.regionY][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k-20) * 16, viewport.offset[1] + l * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX][currentPlayer.regionY - 1][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX][currentPlayer.regionY - 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + k * 16, viewport.offset[1] + (l-20) * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX - 1][currentPlayer.regionY - 1][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX - 1][currentPlayer.regionY - 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k-20) * 16, viewport.offset[1] + (l-20) * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX + 1][currentPlayer.regionY - 1][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX + 1][currentPlayer.regionY - 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k+20) * 16, viewport.offset[1] + (l-20) * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX - 1][currentPlayer.regionY + 1][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX - 1][currentPlayer.regionY + 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k-20) * 16, viewport.offset[1] + (l+20) * 16, 16, 16);
+                        ctx2.drawImage(worldTilesColor, ((baseMap[currentPlayer.regionX + 1][currentPlayer.regionY + 1][k][l]%8) * 16), (Math.floor(baseMap[currentPlayer.regionX + 1][currentPlayer.regionY + 1][k][l] / 8) * 16), 16, 16, viewport.offset[0] + (k+20) * 16, viewport.offset[1] + (l+20) * 16, 16, 16);
                 
                 
                     //}
@@ -197,8 +210,11 @@ window.onload = function(){
 	        ctx2.textAlign = "left";
 	        ctx2.textBaseline = "top";
 	        ctx2.fillText("YOU ROCK " +  currentPlayer.regionX + ":" + currentPlayer.regionY, 32, 32);
+
+        
+            
    
-       // });
+      //  });
 
 
 
@@ -211,6 +227,8 @@ window.onload = function(){
 
 
     })
+
+    
     
     
 
@@ -245,7 +263,6 @@ window.onload = function(){
 
 
     
-
 
 
     
