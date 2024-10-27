@@ -1,3 +1,5 @@
+const port = process.env.PORT || 3000;
+
 const express = require('express');
 const { createServer } = require('node:http');
 const { Server } = require('socket.io');
@@ -103,7 +105,7 @@ io.on('connection', (socket) => {
 
 
   socket.emit('state', {map: matrix});
-  console.log("hello");
+  console.log("hellgo");
 
 
 
@@ -293,6 +295,6 @@ setInterval(function() {
 
 
 
-server.listen(3000, () => {
+server.listen(port, () => {
   console.log('server running at http://localhost:3000');
 });

@@ -357,4 +357,3 @@ document.addEventListener('keydown', function(event) {switch (event.keyCode) {
 socket.emit('new player');
 
 setInterval(function() {socket.emit('movement', movement);}, 1000 / 60);
-
